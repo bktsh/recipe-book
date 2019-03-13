@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RecipeService } from './recipes/recipe.service';
-import { DataTransferService } from './shared/dataTransfer.service';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +7,19 @@ import { DataTransferService } from './shared/dataTransfer.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private dataTransferService: DataTransferService) { }
+
+  loadedFeature = 'recipe';
+
+  constructor() { }
+
   ngOnInit(): void {
-    this.dataTransferService.fetchDataFromServers();
+    firebase.initializeApp({
+      apiKey: 'AIzaSyAI17vFm-KjTZ7SVLoStuNdIIHMQ5D5kxk',
+      authDomain: 'recipe-book-c539c.firebaseapp.com'
+    });
+  }
+
+  onNavigate(feature: string) {
+    this.loadedFeature = feature;
   }
 }
